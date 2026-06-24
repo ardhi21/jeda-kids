@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">JedaKids</string>
+    <string name="device_admin_description">Allow JedaKids to show the device lock screen when a timed session ends.</string>
+</resources>
