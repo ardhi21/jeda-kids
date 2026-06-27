@@ -10,7 +10,7 @@ class JedaDeviceAdminReceiver : DeviceAdminReceiver() {
         super.onEnabled(context, intent)
         Toast.makeText(
             context,
-            "JedaKids device administrator enabled",
+            context.getString(R.string.app_name) + " device administrator enabled",
             Toast.LENGTH_SHORT
         ).show()
     }
@@ -19,7 +19,7 @@ class JedaDeviceAdminReceiver : DeviceAdminReceiver() {
         super.onDisabled(context, intent)
         Toast.makeText(
             context,
-            "JedaKids device administrator disabled",
+            context.getString(R.string.app_name) + " device administrator disabled",
             Toast.LENGTH_SHORT
         ).show()
     }

@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">JedaKids</string>
-    <string name="device_admin_description">Allow JedaKids to show the device lock screen when a timed session ends.</string>
+    <string name="app_name">Jeda Kids</string>
+    <string name="device_admin_description">Allow Jeda Kids to show the device lock screen when a timed session ends.</string>
+    <string name="time_up_channel_name">Time-up warnings</string>
+    <string name="time_up_channel_description">Warnings shown shortly before Jeda Kids locks the device</string>
+    <string name="time_up_notification_title">Time\'s up!</string>
+    <string name="time_up_notification_message">Jeda Kids will lock this device in %1$d seconds.</string>
 </resources>

@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "JedaKids"
+rootProject.name = "Jeda Kids"
 include(":app")

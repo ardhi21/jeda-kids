@@ -21,19 +21,41 @@ class RecoveryReceiver : BroadcastReceiver() {
             return
         }
 
-        if (endAtMillis <= System.currentTimeMillis()) {
-            preferences.clearSession()
-            LockController.lockNow(context)
-            return
-        }
+        val nowMillis = System.currentTimeMillis()
+        val lockAtMillis = endAtMillis + TimerScheduler.LOCK_GRACE_PERIOD_MILLIS
 
-        if (TimerScheduler.canScheduleExactAlarms(context)) {
-            TimerScheduler.schedule(context, endAtMillis)
+        when {
+            endAtMillis > nowMillis -> {
+                if (TimerScheduler.canScheduleExactAlarms(context)) {
+                    TimerScheduler.schedule(context, endAtMillis)
+                }
+            }
+
+            lockAtMillis > nowMillis -> {
+                TimeUpNotifier.showTimeUpNotification(context, lockAtMillis)
+                if (TimerScheduler.canScheduleExactAlarms(context)) {
+                    TimerScheduler.scheduleLock(context, lockAtMillis)
+                } else {
+                    finishExpiredSession(context, preferences)
+                }
+            }
+
+            else -> finishExpiredSession(context, preferences)
         }
+    }
+
+    private fun finishExpiredSession(
+        context: Context,
+        preferences: TimerPreferences,
+    ) {
+        preferences.clearSession()
+        TimerScheduler.cancel(context)
+        TimeUpNotifier.cancel(context)
+        LockController.lockNow(context)
     }
 
     companion object {
         private const val ACTION_EXACT_ALARM_PERMISSION_CHANGED =
-            "android.app.aciton.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED"
+            "android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED"
     }
 }
